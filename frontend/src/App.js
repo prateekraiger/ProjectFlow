@@ -184,11 +184,11 @@ const Dashboard = () => {
   }, []);
 
   const statCards = [
-    { title: 'Total Tasks', value: stats.total_tasks, icon: CheckSquare, className: 'stats-card-total from-purple-500 to-indigo-600' },
-    { title: 'Completed', value: stats.completed_tasks, icon: CheckSquare, className: 'stats-card-completed from-green-500 to-emerald-600' },
-    { title: 'In Progress', value: stats.in_progress_tasks, icon: Clock, className: 'stats-card-progress from-blue-500 to-cyan-600' },
-    { title: 'Pending', value: stats.pending_tasks, icon: Flag, className: 'stats-card-pending from-orange-500 to-red-600' },
-    { title: 'Projects', value: stats.total_projects, icon: FolderKanban, className: 'stats-card-projects from-indigo-500 to-purple-600' }
+    { title: 'Total Tasks', value: stats.total_tasks, icon: CheckSquare, className: 'stats-card-total' },
+    { title: 'Completed', value: stats.completed_tasks, icon: CheckSquare, className: 'stats-card-completed' },
+    { title: 'In Progress', value: stats.in_progress_tasks, icon: Clock, className: 'stats-card-progress' },
+    { title: 'Pending', value: stats.pending_tasks, icon: Flag, className: 'stats-card-pending' },
+    { title: 'Projects', value: stats.total_projects, icon: FolderKanban, className: 'stats-card-projects' }
   ];
 
   return (
