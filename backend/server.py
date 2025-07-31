@@ -111,7 +111,6 @@ class TaskList(BaseModel):
 
 class TaskListCreate(BaseModel):
     name: str
-    project_id: str
 
 # WebSocket endpoint
 @app.websocket("/ws")
