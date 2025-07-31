@@ -359,7 +359,8 @@ const TasksPage = () => {
                   placeholder="Task title"
                   value={newTask.title}
                   onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
-                  className="px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="px-4 py-3 border rounded-xl focus:ring-2 focus:border-transparent"
+                  style={{borderColor: '#78c6a3', focusRingColor: 'rgba(70, 157, 137, 0.2)'}}
                   required
                 />
                 <select
