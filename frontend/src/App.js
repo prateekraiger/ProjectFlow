@@ -202,7 +202,7 @@ const Dashboard = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
           {statCards.map(({ title, value, icon: Icon, className }) => (
-            <div key={title} className={`stats-card p-6 rounded-2xl bg-gradient-to-br ${className} shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2`}>
+            <div key={title} className={`stats-card p-6 rounded-2xl ${className} shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2`}>
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-white/90 text-sm font-medium">{title}</p>
