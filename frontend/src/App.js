@@ -57,17 +57,17 @@ const SortableTaskItem = ({ task, onUpdate, onDelete }) => {
 
   const getPriorityColor = (priority) => {
     switch (priority) {
-      case 'high': return 'border-red-500 bg-red-50';
-      case 'medium': return 'border-yellow-500 bg-yellow-50';
-      case 'low': return 'border-green-500 bg-green-50';
+      case 'high': return 'border-red-400 bg-red-50';
+      case 'medium': return 'border-orange-300 bg-orange-50';
+      case 'low': return 'border-emerald-300 bg-emerald-50';
       default: return 'border-gray-300 bg-white';
     }
   };
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'done': return 'bg-green-100 text-green-800';
-      case 'in-progress': return 'bg-blue-100 text-blue-800';
+      case 'done': return 'bg-emerald-100 text-emerald-800';
+      case 'in-progress': return 'bg-teal-100 text-teal-800';
       default: return 'bg-gray-100 text-gray-800';
     }
   };
