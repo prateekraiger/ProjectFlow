@@ -159,7 +159,7 @@ const SortableTaskItem = ({ task, onUpdate, onDelete }) => {
   );
 };
 
-// Navigation Component
+// Navigation Component with Enhanced Animations
 const Navigation = () => {
   const location = useLocation();
   
@@ -170,33 +170,63 @@ const Navigation = () => {
   ];
   
   return (
-    <nav className="bg-white shadow-sm border-b" style={{borderColor: '#99e2b4'}}>
+    <motion.nav 
+      className="bg-white shadow-sm border-b backdrop-blur-lg" 
+      style={{borderColor: '#99e2b4'}}
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-8">
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-teal-700 bg-clip-text text-transparent">
+            <motion.h1 
+              className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-teal-700 bg-clip-text text-transparent"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.2 }}
+            >
               ProjectFlow
-            </h1>
+            </motion.h1>
             <div className="flex space-x-1">
-              {navItems.map(({ path, label, icon: Icon }) => (
-                <Link
+              {navItems.map(({ path, label, icon: Icon }, index) => (
+                <motion.div
                   key={path}
-                  to={path}
-                  className={`nav-item px-4 py-2 rounded-xl flex items-center space-x-2 transition-all duration-200 ${
-                    location.pathname === path
-                      ? 'nav-item-active'
-                      : 'nav-item-inactive'
-                  }`}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 + 0.3 }}
                 >
-                  <Icon size={18} />
-                  <span className="font-medium">{label}</span>
-                </Link>
+                  <Link
+                    to={path}
+                    className={`nav-item px-4 py-2 rounded-xl flex items-center space-x-2 transition-all duration-200 relative overflow-hidden ${
+                      location.pathname === path
+                        ? 'nav-item-active'
+                        : 'nav-item-inactive'
+                    }`}
+                  >
+                    {location.pathname === path && (
+                      <motion.div
+                        className="absolute inset-0 rounded-xl"
+                        style={{background: 'linear-gradient(135deg, #99e2b4 0%, #88d4ab 100%)'}}
+                        layoutId="activeTab"
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                      />
+                    )}
+                    <motion.div 
+                      className="relative z-10 flex items-center space-x-2"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Icon size={18} />
+                      <span className="font-medium">{label}</span>
+                    </motion.div>
+                  </Link>
+                </motion.div>
               ))}
             </div>
           </div>
         </div>
       </div>
-    </nav>
+    </motion.nav>
   );
 };
 
