@@ -192,7 +192,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
       <Navigation />
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8">
@@ -202,10 +202,10 @@ const Dashboard = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
           {statCards.map(({ title, value, icon: Icon, className }) => (
-            <div key={title} className={`stats-card p-6 rounded-2xl bg-gradient-to-br ${className} text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2`}>
+            <div key={title} className={`stats-card p-6 rounded-2xl bg-gradient-to-br ${className} shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2`}>
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-white/80 text-sm font-medium">{title}</p>
+                  <p className="text-white/90 text-sm font-medium">{title}</p>
                   <p className="text-3xl font-bold mt-1">{value}</p>
                 </div>
                 <Icon size={32} className="text-white/80" />
@@ -217,14 +217,16 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="stats-card p-6 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300">
             <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center">
-              <BarChart3 className="mr-2 text-purple-500" />
+              <BarChart3 className="mr-2" style={{color: '#469d89'}} />
               Quick Actions
             </h3>
             <div className="space-y-3">
-              <Link to="/tasks" className="block w-full p-3 bg-purple-50 hover:bg-purple-100 rounded-xl text-purple-700 font-medium transition-colors duration-200">
+              <Link to="/tasks" className="block w-full p-3 rounded-xl font-medium transition-colors duration-200" 
+                    style={{background: 'linear-gradient(135deg, #99e2b4 0%, #88d4ab 100%)', color: '#036666'}}>
                 + Create New Task
               </Link>
-              <Link to="/projects" className="block w-full p-3 bg-indigo-50 hover:bg-indigo-100 rounded-xl text-indigo-700 font-medium transition-colors duration-200">
+              <Link to="/projects" className="block w-full p-3 rounded-xl font-medium transition-colors duration-200"
+                    style={{background: 'linear-gradient(135deg, #78c6a3 0%, #67b99a 100%)', color: '#036666'}}>
                 + Start New Project
               </Link>
             </div>
@@ -233,9 +235,9 @@ const Dashboard = () => {
           <div className="stats-card p-6 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300">
             <h3 className="text-xl font-semibold text-gray-800 mb-4">Recent Activity</h3>
             <div className="space-y-3 text-gray-600">
-              <p className="flex items-center"><Clock size={16} className="mr-2 text-purple-500" /> Real-time updates enabled</p>
-              <p className="flex items-center"><CheckSquare size={16} className="mr-2 text-green-500" /> Drag & drop task management</p>
-              <p className="flex items-center"><FolderKanban size={16} className="mr-2 text-blue-500" /> Project-based kanban boards</p>
+              <p className="flex items-center"><Clock size={16} className="mr-2" style={{color: '#469d89'}} /> Real-time updates enabled</p>
+              <p className="flex items-center"><CheckSquare size={16} className="mr-2" style={{color: '#248277'}} /> Drag & drop task management</p>
+              <p className="flex items-center"><FolderKanban size={16} className="mr-2" style={{color: '#14746f'}} /> Project-based kanban boards</p>
             </div>
           </div>
         </div>
