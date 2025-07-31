@@ -407,9 +407,9 @@ const TasksPage = () => {
           {Object.entries(statusGroups).map(([status, statusTasks]) => (
             <div key={status} className="stats-card p-6 rounded-2xl bg-white shadow-lg">
               <h3 className="text-lg font-semibold text-gray-800 mb-4 capitalize flex items-center">
-                {status === 'todo' && <Flag className="mr-2 text-orange-500" />}
-                {status === 'in-progress' && <Clock className="mr-2 text-blue-500" />}
-                {status === 'done' && <CheckSquare className="mr-2 text-green-500" />}
+                {status === 'todo' && <Flag className="mr-2" style={{color: '#f59e0b'}} />}
+                {status === 'in-progress' && <Clock className="mr-2" style={{color: '#469d89'}} />}
+                {status === 'done' && <CheckSquare className="mr-2" style={{color: '#248277'}} />}
                 {status.replace('-', ' ')} ({statusTasks.length})
               </h3>
               <DndContext
