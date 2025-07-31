@@ -103,7 +103,7 @@ const SortableTaskItem = ({ task, onUpdate, onDelete }) => {
             {task.status}
           </span>
           <div className="flex items-center text-xs text-gray-500">
-            <Flag size={12} className="mr-1" />
+            <Flag size={12} className="mr-1" style={{color: '#469d89'}} />
             {task.priority}
           </div>
         </div>
