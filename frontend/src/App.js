@@ -559,14 +559,16 @@ const ProjectsPage = () => {
               <div className="flex space-x-4">
                 <button
                   type="submit"
-                  className="px-6 py-2 bg-purple-500 text-white rounded-xl hover:bg-purple-600 transition-colors duration-200"
+                  className="px-6 py-2 text-white rounded-xl transition-colors duration-200"
+                  style={{background: 'linear-gradient(135deg, #469d89 0%, #358f80 100%)'}}
                 >
                   Create Project
                 </button>
                 <button
                   type="button"
                   onClick={() => setShowAddForm(false)}
-                  className="px-6 py-2 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors duration-200"
+                  className="px-6 py-2 border text-gray-700 rounded-xl hover:bg-gray-50 transition-colors duration-200"
+                  style={{borderColor: '#78c6a3'}}
                 >
                   Cancel
                 </button>
