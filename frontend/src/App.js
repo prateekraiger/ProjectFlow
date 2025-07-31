@@ -366,7 +366,8 @@ const TasksPage = () => {
                 <select
                   value={newTask.priority}
                   onChange={(e) => setNewTask({ ...newTask, priority: e.target.value })}
-                  className="px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="px-4 py-3 border rounded-xl focus:ring-2 focus:border-transparent"
+                  style={{borderColor: '#78c6a3', focusRingColor: 'rgba(70, 157, 137, 0.2)'}}
                 >
                   <option value="low">Low Priority</option>
                   <option value="medium">Medium Priority</option>
