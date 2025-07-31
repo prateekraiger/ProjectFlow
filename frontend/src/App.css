@@ -94,9 +94,9 @@
   color: var(--color-dark);
 }
 
-/* Button Styles */
+/* Button Styles - Updated Green Theme */
 .btn-primary {
-  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+  background: linear-gradient(135deg, var(--color-medium-dark) 0%, var(--color-dark-medium) 100%);
   color: white;
   border: none;
   border-radius: 0.75rem;
@@ -104,17 +104,19 @@
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(70, 157, 137, 0.3);
 }
 
 .btn-primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 10px 25px -3px rgba(139, 92, 246, 0.3);
+  box-shadow: 0 6px 20px rgba(70, 157, 137, 0.4);
+  background: linear-gradient(135deg, var(--color-dark-medium) 0%, var(--color-dark) 100%);
 }
 
 .btn-secondary {
   background: white;
-  color: #6b7280;
-  border: 1px solid #d1d5db;
+  color: var(--color-dark);
+  border: 1px solid var(--color-light-medium);
   border-radius: 0.75rem;
   padding: 0.75rem 1.5rem;
   font-weight: 500;
@@ -123,7 +125,8 @@
 }
 
 .btn-secondary:hover {
-  background: #f9fafb;
+  background: linear-gradient(135deg, var(--color-lightest) 0%, var(--color-light) 100%);
+  border-color: var(--color-medium);
 }
 
 /* Input Styles */
