@@ -41,7 +41,7 @@ const connectWebSocket = (onMessage) => {
   return ws;
 };
 
-// Sortable Task Item Component
+// Sortable Task Item Component with Enhanced Animations
 const SortableTaskItem = ({ task, onUpdate, onDelete }) => {
   const {
     attributes,
@@ -49,6 +49,7 @@ const SortableTaskItem = ({ task, onUpdate, onDelete }) => {
     setNodeRef,
     transform,
     transition,
+    isDragging,
   } = useSortable({ id: task.id });
 
   const style = {
@@ -74,35 +75,70 @@ const SortableTaskItem = ({ task, onUpdate, onDelete }) => {
   };
 
   return (
-    <div
+    <motion.div
       ref={setNodeRef}
       style={style}
       {...attributes}
       {...listeners}
-      className={`stats-card p-4 mb-3 rounded-xl border-2 cursor-move hover:shadow-lg transition-all duration-200 ${getPriorityColor(task.priority)}`}
+      className={`stats-card p-4 mb-3 rounded-xl border-2 cursor-move ${getPriorityColor(task.priority)} ${isDragging ? 'opacity-50 scale-105' : ''}`}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      whileHover={{ 
+        y: -2, 
+        boxShadow: "0 10px 25px -3px rgba(70, 157, 137, 0.3)",
+        transition: { duration: 0.2 }
+      }}
+      whileTap={{ scale: 0.98 }}
+      layout
     >
       <div className="flex justify-between items-start mb-2">
-        <h4 className="font-semibold text-gray-800 flex-1">{task.title}</h4>
-        <button
+        <motion.h4 
+          className="font-semibold text-gray-800 flex-1"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.1 }}
+        >
+          {task.title}
+        </motion.h4>
+        <motion.button
           onClick={(e) => {
             e.stopPropagation();
             onDelete(task.id);
           }}
-          className="text-red-500 hover:text-red-700 ml-2"
+          className="text-red-500 hover:text-red-700 ml-2 p-1 rounded-full hover:bg-red-50"
+          whileHover={{ scale: 1.1, rotate: 90 }}
+          whileTap={{ scale: 0.9 }}
+          transition={{ duration: 0.2 }}
         >
           <Trash2 size={16} />
-        </button>
+        </motion.button>
       </div>
       
       {task.description && (
-        <p className="text-gray-600 text-sm mb-3">{task.description}</p>
+        <motion.p 
+          className="text-gray-600 text-sm mb-3"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+        >
+          {task.description}
+        </motion.p>
       )}
       
-      <div className="flex items-center justify-between">
+      <motion.div 
+        className="flex items-center justify-between"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.3 }}
+      >
         <div className="flex items-center gap-2">
-          <span className={`px-2 py-1 text-xs rounded-full ${getStatusColor(task.status)}`}>
+          <motion.span 
+            className={`px-2 py-1 text-xs rounded-full ${getStatusColor(task.status)}`}
+            whileHover={{ scale: 1.05 }}
+          >
             {task.status}
-          </span>
+          </motion.span>
           <div className="flex items-center text-xs text-gray-500">
             <Flag size={12} className="mr-1" style={{color: '#469d89'}} />
             {task.priority}
@@ -110,13 +146,16 @@ const SortableTaskItem = ({ task, onUpdate, onDelete }) => {
         </div>
         
         {task.due_date && (
-          <div className="flex items-center text-xs text-gray-500">
+          <motion.div 
+            className="flex items-center text-xs text-gray-500"
+            whileHover={{ scale: 1.05 }}
+          >
             <Calendar size={12} className="mr-1" style={{color: '#248277'}} />
             {new Date(task.due_date).toLocaleDateString()}
-          </div>
+          </motion.div>
         )}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
