@@ -470,7 +470,7 @@ const Dashboard = () => {
   );
 };
 
-// Tasks Page Component
+// Tasks Page Component with Enhanced Animations
 const TasksPage = () => {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState({ title: '', description: '', priority: 'medium', status: 'todo' });
@@ -555,116 +555,254 @@ const TasksPage = () => {
     done: tasks.filter(task => task.status === 'done')
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
+    <motion.div 
+      className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+    >
       <Navigation />
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="flex justify-between items-center mb-8">
+      <motion.div 
+        className="max-w-7xl mx-auto px-4 py-8"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.div 
+          className="flex justify-between items-center mb-8"
+          variants={itemVariants}
+        >
           <div>
-            <h2 className="text-3xl font-bold text-gray-800 mb-2">My Tasks</h2>
-            <p className="text-gray-600">Manage your personal tasks efficiently</p>
+            <motion.h2 
+              className="text-3xl font-bold text-gray-800 mb-2"
+              initial={{ x: -50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.6 }}
+            >
+              My Tasks
+            </motion.h2>
+            <motion.p 
+              className="text-gray-600"
+              initial={{ x: -50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              Manage your personal tasks efficiently
+            </motion.p>
           </div>
-          <button
+          <motion.button
             onClick={() => setShowAddForm(!showAddForm)}
-            className="px-6 py-3 bg-gradient-to-r text-white rounded-xl font-medium hover:shadow-lg transition-all duration-200 hover:transform hover:-translate-y-1 flex items-center space-x-2"
+            className="px-6 py-3 text-white rounded-xl font-medium shadow-lg flex items-center space-x-2 relative overflow-hidden"
             style={{background: 'linear-gradient(135deg, #469d89 0%, #358f80 100%)'}}
+            whileHover={{ 
+              y: -2, 
+              boxShadow: "0 15px 30px -5px rgba(70, 157, 137, 0.4)",
+              scale: 1.02
+            }}
+            whileTap={{ scale: 0.98 }}
+            initial={{ x: 50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <Plus size={20} />
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0"
+              whileHover={{ opacity: 1, x: ['-100%', '100%'] }}
+              transition={{ duration: 0.6 }}
+            />
+            <motion.div
+              animate={{ rotate: showAddForm ? 45 : 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Plus size={20} />
+            </motion.div>
             <span>Add Task</span>
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
 
-        {showAddForm && (
-          <div className="stats-card p-6 rounded-2xl bg-white shadow-lg mb-8">
-            <form onSubmit={createTask} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input
-                  type="text"
-                  placeholder="Task title"
-                  value={newTask.title}
-                  onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
-                  className="px-4 py-3 border rounded-xl focus:ring-2 focus:border-transparent"
-                  style={{borderColor: '#78c6a3', focusRingColor: 'rgba(70, 157, 137, 0.2)'}}
-                  required
-                />
-                <select
-                  value={newTask.priority}
-                  onChange={(e) => setNewTask({ ...newTask, priority: e.target.value })}
-                  className="px-4 py-3 border rounded-xl focus:ring-2 focus:border-transparent"
-                  style={{borderColor: '#78c6a3', focusRingColor: 'rgba(70, 157, 137, 0.2)'}}
-                >
-                  <option value="low">Low Priority</option>
-                  <option value="medium">Medium Priority</option>
-                  <option value="high">High Priority</option>
-                </select>
-              </div>
-              <textarea
-                placeholder="Task description (optional)"
-                value={newTask.description}
-                onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
-                className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:border-transparent"
-                style={{borderColor: '#78c6a3', focusRingColor: 'rgba(70, 157, 137, 0.2)'}}
-                rows="3"
-              />
-              <div className="flex space-x-4">
-                <button
-                  type="submit"
-                  className="px-6 py-2 text-white rounded-xl transition-colors duration-200"
-                  style={{background: 'linear-gradient(135deg, #469d89 0%, #358f80 100%)'}}
-                >
-                  Create Task
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setShowAddForm(false)}
-                  className="px-6 py-2 border text-gray-700 rounded-xl hover:bg-gray-50 transition-colors duration-200"
-                  style={{borderColor: '#78c6a3'}}
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </div>
-        )}
+        <AnimatePresence>
+          {showAddForm && (
+            <motion.div 
+              className="stats-card p-6 rounded-2xl bg-white shadow-lg mb-8 border-2"
+              style={{borderColor: '#99e2b4'}}
+              initial={{ opacity: 0, y: -20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+            >
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+              >
+                <form onSubmit={createTask} className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <motion.input
+                      type="text"
+                      placeholder="Task title"
+                      value={newTask.title}
+                      onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
+                      className="px-4 py-3 border rounded-xl focus:ring-2 focus:border-transparent transition-all duration-300"
+                      style={{borderColor: '#78c6a3', focusRingColor: 'rgba(70, 157, 137, 0.2)'}}
+                      required
+                      initial={{ x: -20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ delay: 0.3 }}
+                      whileFocus={{ scale: 1.02, boxShadow: "0 5px 15px -5px rgba(70, 157, 137, 0.3)" }}
+                    />
+                    <motion.select
+                      value={newTask.priority}
+                      onChange={(e) => setNewTask({ ...newTask, priority: e.target.value })}
+                      className="px-4 py-3 border rounded-xl focus:ring-2 focus:border-transparent transition-all duration-300"
+                      style={{borderColor: '#78c6a3', focusRingColor: 'rgba(70, 157, 137, 0.2)'}}
+                      initial={{ x: 20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ delay: 0.4 }}
+                      whileFocus={{ scale: 1.02, boxShadow: "0 5px 15px -5px rgba(70, 157, 137, 0.3)" }}
+                    >
+                      <option value="low">Low Priority</option>
+                      <option value="medium">Medium Priority</option>
+                      <option value="high">High Priority</option>
+                    </motion.select>
+                  </div>
+                  <motion.textarea
+                    placeholder="Task description (optional)"
+                    value={newTask.description}
+                    onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
+                    className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:border-transparent transition-all duration-300"
+                    style={{borderColor: '#78c6a3', focusRingColor: 'rgba(70, 157, 137, 0.2)'}}
+                    rows="3"
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                    whileFocus={{ scale: 1.01, boxShadow: "0 5px 15px -5px rgba(70, 157, 137, 0.3)" }}
+                  />
+                  <motion.div 
+                    className="flex space-x-4"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.6 }}
+                  >
+                    <motion.button
+                      type="submit"
+                      className="px-6 py-2 text-white rounded-xl transition-all duration-300 relative overflow-hidden"
+                      style={{background: 'linear-gradient(135deg, #469d89 0%, #358f80 100%)'}}
+                      whileHover={{ scale: 1.05, boxShadow: "0 5px 15px -5px rgba(70, 157, 137, 0.4)" }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Create Task
+                    </motion.button>
+                    <motion.button
+                      type="button"
+                      onClick={() => setShowAddForm(false)}
+                      className="px-6 py-2 border text-gray-700 rounded-xl hover:bg-gray-50 transition-all duration-300"
+                      style={{borderColor: '#78c6a3'}}
+                      whileHover={{ scale: 1.05, backgroundColor: '#f9fafb' }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Cancel
+                    </motion.button>
+                  </motion.div>
+                </form>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {Object.entries(statusGroups).map(([status, statusTasks]) => (
-            <div key={status} className="stats-card p-6 rounded-2xl bg-white shadow-lg">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4 capitalize flex items-center">
+        <motion.div 
+          className="grid grid-cols-1 lg:grid-cols-3 gap-8"
+          variants={containerVariants}
+        >
+          {Object.entries(statusGroups).map(([status, statusTasks], columnIndex) => (
+            <motion.div 
+              key={status} 
+              className="stats-card p-6 rounded-2xl bg-white shadow-lg"
+              variants={itemVariants}
+              whileHover={{ y: -2, boxShadow: "0 15px 30px -5px rgba(70, 157, 137, 0.2)" }}
+            >
+              <motion.h3 
+                className="text-lg font-semibold text-gray-800 mb-4 capitalize flex items-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: columnIndex * 0.2 + 0.5 }}
+              >
                 {status === 'todo' && <Flag className="mr-2" style={{color: '#f59e0b'}} />}
                 {status === 'in-progress' && <Clock className="mr-2" style={{color: '#469d89'}} />}
                 {status === 'done' && <CheckSquare className="mr-2" style={{color: '#248277'}} />}
                 {status.replace('-', ' ')} ({statusTasks.length})
-              </h3>
+              </motion.h3>
               <DndContext
                 sensors={sensors}
                 collisionDetection={closestCenter}
                 onDragEnd={handleDragEnd}
               >
                 <SortableContext items={statusTasks.map(task => task.id)} strategy={verticalListSortingStrategy}>
-                  <div className="space-y-3">
-                    {statusTasks.map((task) => (
-                      <SortableTaskItem
-                        key={task.id}
-                        task={task}
-                        onUpdate={updateTask}
-                        onDelete={deleteTask}
-                      />
-                    ))}
-                    {statusTasks.length === 0 && (
-                      <div className="text-center py-8 text-gray-400">
-                        <CheckSquare size={48} className="mx-auto mb-2 opacity-50" />
-                        <p>No tasks in {status.replace('-', ' ')}</p>
-                      </div>
-                    )}
-                  </div>
+                  <AnimatePresence>
+                    <div className="space-y-3 min-h-[200px]">
+                      {statusTasks.map((task, index) => (
+                        <motion.div
+                          key={task.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -20 }}
+                          transition={{ delay: index * 0.1 }}
+                          layout
+                        >
+                          <SortableTaskItem
+                            task={task}
+                            onUpdate={updateTask}
+                            onDelete={deleteTask}
+                          />
+                        </motion.div>
+                      ))}
+                      {statusTasks.length === 0 && (
+                        <motion.div 
+                          className="text-center py-8 text-gray-400"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: 0.5 }}
+                        >
+                          <motion.div
+                            animate={{ y: [0, -10, 0] }}
+                            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                          >
+                            <CheckSquare size={48} className="mx-auto mb-2 opacity-50" />
+                          </motion.div>
+                          <p>No tasks in {status.replace('-', ' ')}</p>
+                        </motion.div>
+                      )}
+                    </div>
+                  </AnimatePresence>
                 </SortableContext>
               </DndContext>
-            </div>
+            </motion.div>
           ))}
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 };
 
