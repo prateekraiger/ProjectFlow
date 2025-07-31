@@ -130,7 +130,7 @@ const Navigation = () => {
   ];
   
   return (
-    <nav className="bg-white shadow-sm border-b border-purple-100">
+    <nav className="bg-white shadow-sm border-b" style={{borderColor: '#99e2b4'}}>
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-8">
@@ -144,8 +144,8 @@ const Navigation = () => {
                   to={path}
                   className={`nav-item px-4 py-2 rounded-xl flex items-center space-x-2 transition-all duration-200 ${
                     location.pathname === path
-                      ? 'nav-item-active bg-purple-100 text-purple-700'
-                      : 'nav-item-inactive text-gray-600 hover:bg-purple-50 hover:text-purple-600'
+                      ? 'nav-item-active'
+                      : 'nav-item-inactive'
                   }`}
                 >
                   <Icon size={18} />
