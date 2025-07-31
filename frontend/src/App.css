@@ -68,7 +68,7 @@
   color: white;
 }
 
-/* Navigation Items - Mandatory Design System */
+/* Navigation Items - Updated Green Theme */
 .nav-item {
   display: flex;
   align-items: center;
@@ -80,8 +80,9 @@
 }
 
 .nav-item-active {
-  background-color: #f3e8ff;
-  color: #7c3aed;
+  background: linear-gradient(135deg, var(--color-light) 0%, var(--color-light-medium) 100%);
+  color: var(--color-darkest);
+  box-shadow: 0 2px 8px rgba(70, 157, 137, 0.2);
 }
 
 .nav-item-inactive {
@@ -89,8 +90,8 @@
 }
 
 .nav-item-inactive:hover {
-  background-color: #faf5ff;
-  color: #8b5cf6;
+  background: linear-gradient(135deg, var(--color-lightest) 0%, var(--color-light) 100%);
+  color: var(--color-dark);
 }
 
 /* Button Styles */
