@@ -230,7 +230,7 @@ const Navigation = () => {
   );
 };
 
-// Dashboard Component
+// Dashboard Component with Enhanced Animations
 const Dashboard = () => {
   const [stats, setStats] = useState({
     total_tasks: 0,
@@ -261,58 +261,212 @@ const Dashboard = () => {
     { title: 'Projects', value: stats.total_projects, icon: FolderKanban, className: 'stats-card-projects' }
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
+    <motion.div 
+      className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+    >
       <Navigation />
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-800 mb-2">Welcome to ProjectFlow</h2>
-          <p className="text-gray-600">Manage your tasks and projects with real-time collaboration.</p>
-        </div>
+      <motion.div 
+        className="max-w-7xl mx-auto px-4 py-8"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.div className="mb-8" variants={itemVariants}>
+          <motion.h2 
+            className="text-3xl font-bold text-gray-800 mb-2"
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            Welcome to ProjectFlow
+          </motion.h2>
+          <motion.p 
+            className="text-gray-600"
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            Manage your tasks and projects with real-time collaboration.
+          </motion.p>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
-          {statCards.map(({ title, value, icon: Icon, className }) => (
-            <div key={title} className={`stats-card p-6 rounded-2xl ${className} shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2`}>
-              <div className="flex items-center justify-between">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8"
+          variants={containerVariants}
+        >
+          {statCards.map(({ title, value, icon: Icon, className }, index) => (
+            <motion.div
+              key={title}
+              className={`stats-card p-6 rounded-2xl ${className} shadow-lg cursor-pointer overflow-hidden relative`}
+              variants={itemVariants}
+              whileHover={{ 
+                y: -8, 
+                boxShadow: "0 20px 40px -10px rgba(70, 157, 137, 0.3)",
+                transition: { duration: 0.3 }
+              }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0"
+                whileHover={{ opacity: 1, x: ['-100%', '100%'] }}
+                transition={{ duration: 0.6 }}
+              />
+              <div className="flex items-center justify-between relative z-10">
                 <div>
-                  <p className="text-white/90 text-sm font-medium">{title}</p>
-                  <p className="text-3xl font-bold mt-1">{value}</p>
+                  <motion.p 
+                    className="text-white/90 text-sm font-medium"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: index * 0.1 + 0.5 }}
+                  >
+                    {title}
+                  </motion.p>
+                  <motion.p 
+                    className="text-3xl font-bold mt-1"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ 
+                      delay: index * 0.1 + 0.6,
+                      type: "spring",
+                      stiffness: 200,
+                      damping: 10
+                    }}
+                  >
+                    {value}
+                  </motion.p>
                 </div>
-                <Icon size={32} className="text-white/80" />
+                <motion.div
+                  initial={{ rotate: -180, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 0.8 }}
+                  transition={{ delay: index * 0.1 + 0.7, duration: 0.6 }}
+                  whileHover={{ rotate: 360, scale: 1.1 }}
+                >
+                  <Icon size={32} className="text-white/80" />
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="stats-card p-6 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+        <motion.div 
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+          variants={containerVariants}
+        >
+          <motion.div 
+            className="stats-card p-6 rounded-2xl bg-white shadow-lg overflow-hidden relative"
+            variants={itemVariants}
+            whileHover={{ y: -4, boxShadow: "0 15px 30px -5px rgba(70, 157, 137, 0.2)" }}
+          >
+            <motion.h3 
+              className="text-xl font-semibold text-gray-800 mb-4 flex items-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
+            >
               <BarChart3 className="mr-2" style={{color: '#469d89'}} />
               Quick Actions
-            </h3>
-            <div className="space-y-3">
-              <Link to="/tasks" className="block w-full p-3 rounded-xl font-medium transition-colors duration-200" 
-                    style={{background: 'linear-gradient(135deg, #99e2b4 0%, #88d4ab 100%)', color: '#036666'}}>
-                + Create New Task
-              </Link>
-              <Link to="/projects" className="block w-full p-3 rounded-xl font-medium transition-colors duration-200"
-                    style={{background: 'linear-gradient(135deg, #78c6a3 0%, #67b99a 100%)', color: '#036666'}}>
-                + Start New Project
-              </Link>
-            </div>
-          </div>
+            </motion.h3>
+            <motion.div 
+              className="space-y-3"
+              variants={containerVariants}
+            >
+              <motion.div variants={itemVariants}>
+                <Link to="/tasks" className="block w-full p-3 rounded-xl font-medium transition-all duration-300 group relative overflow-hidden" 
+                      style={{background: 'linear-gradient(135deg, #99e2b4 0%, #88d4ab 100%)', color: '#036666'}}>
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100"
+                    initial={{ x: '-100%' }}
+                    whileHover={{ x: '100%' }}
+                    transition={{ duration: 0.6 }}
+                  />
+                  <span className="relative z-10">+ Create New Task</span>
+                </Link>
+              </motion.div>
+              <motion.div variants={itemVariants}>
+                <Link to="/projects" className="block w-full p-3 rounded-xl font-medium transition-all duration-300 group relative overflow-hidden"
+                      style={{background: 'linear-gradient(135deg, #78c6a3 0%, #67b99a 100%)', color: '#036666'}}>
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100"
+                    initial={{ x: '-100%' }}
+                    whileHover={{ x: '100%' }}
+                    transition={{ duration: 0.6 }}
+                  />
+                  <span className="relative z-10">+ Start New Project</span>
+                </Link>
+              </motion.div>
+            </motion.div>
+          </motion.div>
 
-          <div className="stats-card p-6 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">Recent Activity</h3>
-            <div className="space-y-3 text-gray-600">
-              <p className="flex items-center"><Clock size={16} className="mr-2" style={{color: '#469d89'}} /> Real-time updates enabled</p>
-              <p className="flex items-center"><CheckSquare size={16} className="mr-2" style={{color: '#248277'}} /> Drag & drop task management</p>
-              <p className="flex items-center"><FolderKanban size={16} className="mr-2" style={{color: '#14746f'}} /> Project-based kanban boards</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+          <motion.div 
+            className="stats-card p-6 rounded-2xl bg-white shadow-lg"
+            variants={itemVariants}
+            whileHover={{ y: -4, boxShadow: "0 15px 30px -5px rgba(70, 157, 137, 0.2)" }}
+          >
+            <motion.h3 
+              className="text-xl font-semibold text-gray-800 mb-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.9 }}
+            >
+              Recent Activity
+            </motion.h3>
+            <motion.div 
+              className="space-y-3 text-gray-600"
+              variants={containerVariants}
+            >
+              <motion.p 
+                className="flex items-center"
+                variants={itemVariants}
+                whileHover={{ x: 5 }}
+              >
+                <Clock size={16} className="mr-2" style={{color: '#469d89'}} /> Real-time updates enabled
+              </motion.p>
+              <motion.p 
+                className="flex items-center"
+                variants={itemVariants}
+                whileHover={{ x: 5 }}
+              >
+                <CheckSquare size={16} className="mr-2" style={{color: '#248277'}} /> Drag & drop task management
+              </motion.p>
+              <motion.p 
+                className="flex items-center"
+                variants={itemVariants}
+                whileHover={{ x: 5 }}
+              >
+                <FolderKanban size={16} className="mr-2" style={{color: '#14746f'}} /> Project-based kanban boards
+              </motion.p>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 };
 
