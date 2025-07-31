@@ -110,7 +110,7 @@ const SortableTaskItem = ({ task, onUpdate, onDelete }) => {
         
         {task.due_date && (
           <div className="flex items-center text-xs text-gray-500">
-            <Calendar size={12} className="mr-1" />
+            <Calendar size={12} className="mr-1" style={{color: '#248277'}} />
             {new Date(task.due_date).toLocaleDateString()}
           </div>
         )}
