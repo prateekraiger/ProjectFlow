@@ -1,9 +1,21 @@
-/* Design System CSS */
+/* Design System CSS - Beautiful Green Gradient Theme */
 :root {
-  --primary-purple: #8b5cf6;
-  --secondary-purple: #f3e8ff;
-  --primary-indigo: #6366f1;
-  --secondary-indigo: #e0e7ff;
+  --color-lightest: #99e2b4;
+  --color-light: #88d4ab;
+  --color-light-medium: #78c6a3;
+  --color-medium-light: #67b99a;
+  --color-medium: #56ab91;
+  --color-medium-dark: #469d89;
+  --color-dark-medium: #358f80;
+  --color-dark: #248277;
+  --color-darker: #14746f;
+  --color-darkest: #036666;
+  
+  /* Semantic color mapping */
+  --primary-green: #469d89;
+  --secondary-green: #99e2b4;
+  --accent-green: #248277;
+  --dark-green: #036666;
 }
 
 .App {
