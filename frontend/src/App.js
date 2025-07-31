@@ -504,7 +504,7 @@ const ProjectsPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
       <Navigation />
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
@@ -514,7 +514,8 @@ const ProjectsPage = () => {
           </div>
           <button
             onClick={() => setShowAddForm(!showAddForm)}
-            className="px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-xl font-medium hover:shadow-lg transition-all duration-200 hover:transform hover:-translate-y-1 flex items-center space-x-2"
+            className="px-6 py-3 text-white rounded-xl font-medium hover:shadow-lg transition-all duration-200 hover:transform hover:-translate-y-1 flex items-center space-x-2"
+            style={{background: 'linear-gradient(135deg, #469d89 0%, #358f80 100%)'}}
           >
             <Plus size={20} />
             <span>New Project</span>
