@@ -551,7 +551,8 @@ const ProjectsPage = () => {
                 placeholder="Project description (optional)"
                 value={newProject.description}
                 onChange={(e) => setNewProject({ ...newProject, description: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:border-transparent"
+                style={{borderColor: '#78c6a3', focusRingColor: 'rgba(70, 157, 137, 0.2)'}}
                 rows="3"
               />
               <div className="flex space-x-4">
